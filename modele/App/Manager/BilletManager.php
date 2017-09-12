@@ -42,8 +42,6 @@ class BilletManager{
 		while($billet = $this->pdoStatement->fetch(pdo::FETCH_ASSOC)){
 			$billets [] = $billet;
 		}
-        var_dump($billets);
-		die();
 		return $billets;
 	}
 	private function create(Billet &$billet){
