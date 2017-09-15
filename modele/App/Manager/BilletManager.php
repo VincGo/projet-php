@@ -33,17 +33,18 @@ class BilletManager{
 		}
 	}
 
-	public function readAll(){
-		$req = $this->pdoStatement = $this->pdo->prepare('SELECT * FROM billet ORDER BY id DESC');
-        $req->execute();
-		$billets = [];
+    public function readAll(){
+        $this->pdoStatement = $this->pdo->query('SELECT * FROM billet ORDER BY date_billet');
 
-//		while($billet = $this->pdoStatement->fetchObject('App\Entity\Billet')){
-		while($billet = $this->pdoStatement->fetch(pdo::FETCH_ASSOC)){
-			$billets [] = $billet;
-		}
-		return $billets;
-	}
+        //construction d'un tableau d'objet de type Contact
+        $billets = [];
+
+        while($billet = $this->pdoStatement->fetchObject('App\Entity\Billet')){
+            $billets[] = $billet;
+        }
+
+        return $billets;
+    }
 	private function create(Billet &$billet){
 		$this->pdoStatement = $this->pdo->prepare('INSERT INTO billet VALUES (NULL, :titre, :contenu, NOW())');
 
