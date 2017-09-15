@@ -4,6 +4,7 @@ require_once '../modele/App/Entity/Billet.php';
 
 
 use App\Manager\BilletManager;
+use App\Entity\Billet;
 
 $billetManager = new BilletManager();
 $billets = $billetManager-> readAll();
