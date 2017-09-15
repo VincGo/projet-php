@@ -47,10 +47,10 @@ class CommentaireManager{
     }
 
     private function createCom(Commentaire &$commentaire){
-        $this->pdoStatement = $this->pdo->prepare('INSERT INTO commentaire VALUES (NULL, :id_billet, :auteur, :contenu_com, NOW())');
+        $this->pdoStatement = $this->pdo->prepare('INSERT INTO commentaire VALUES (NULL, :auteur, :contenu_com, NOW()), :idBillet');
 
         //liaison des
-        $this->pdoStatement->bindValue('::id_billet', $commentaire->getIdBillet(), PDO::PARAM_INT);
+        $this->pdoStatement->bindValue(':idBillet', $commentaire->getIdBillet(), PDO::PARAM_INT);
         $this->pdoStatement->bindValue(':auteur', $commentaire->getAuteur(), PDO::PARAM_STR);
         $this->pdoStatement->bindValue(':contenu_com', $commentaire->getContenuCom(), PDO::PARAM_STR);
 
