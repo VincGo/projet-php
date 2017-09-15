@@ -15,10 +15,10 @@ $commentairemanager = new CommentaireManager();
 $saveIsOk = $commentairemanager->saveCom($commentaire);
 
 if($saveIsOk){
-    $message = 'Le billet a été ajouté';
+    $message = 'Le commentaire a été ajouté';
 }
 else{
-    $message = 'Le billet n\' a pas été ajouté';
+    $message = 'Le commentaire n\' a pas été ajouté';
 }
 
 ?>
