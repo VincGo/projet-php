@@ -51,14 +51,15 @@ $commentaires = $commentaireManager -> readAllCom();
         </p>
         <p>
             <label for="contenu"> Contenu </label>
-            <textarea type="text" name="contentsCom" id="contenu" rows="10" cols="50"></textarea>
+            <textarea name="contentsCom" id="contenu" rows="10" cols="50"></textarea>
         </p>
 
         <p><input type="submit" value="Ajouter le commentaire"></p>
+        <input type="hidden" name="id_billet" value="$_GET['$id']">
     </form>
 
     <?php if (empty($commentaires)): ?>
-        <p> Il n'y a pas de contact</p>
+        <p> Il n'y a pas de commentaire</p>
     <?php  else: ?>
         <?php if($commentaires === false):  ?>
             <p> Une erreur est survenue </p>
