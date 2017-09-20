@@ -3,7 +3,7 @@ namespace App\Entity;
 
 Class Commentaire{
     private $id;
-    private $idBillet;
+    private $id_billet;
     private $auteur;
     private $contenu_com;
     private $date_com;
@@ -15,18 +15,18 @@ Class Commentaire{
     /**
      * @return mixed
      */
-    public function getIdBillet()
+    public function getId_Billet()
     {
-        return $this->idBillet;
+        return $this->id_billet;
     }
 
     /**
      * @param mixed $id_billet
      * @return Commentaire
     */
-    public function setIdBillet($idBillet)
+    public function setId_Billet($id_billet)
     {
-        $this->idBillet = $idBillet;
+        $this->id_billet = $id_billet;
         return $this;
     }
 

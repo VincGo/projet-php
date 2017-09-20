@@ -37,6 +37,7 @@ class CommentaireManager{
     public function readAllCom(){
         $this->pdoStatement = $this->pdo->query('SELECT * FROM commentaire ORDER BY id DESC');
 
+
         $commentaires = [];
 
         while($commentaire = $this->pdoStatement->fetchObject('App\Entity\Commentaire')){
@@ -47,12 +48,12 @@ class CommentaireManager{
     }
 
     private function createCom(Commentaire &$commentaire){
-        $this->pdoStatement = $this->pdo->prepare('INSERT INTO commentaire VALUES (NULL, :auteur, :contenu_com, NOW()), :idBillet');
+        $this->pdoStatement = $this->pdo->prepare('INSERT INTO commentaire VALUES (NULL, :auteur, :contenu_com, NOW() /*:id_billet*/)');
 
         //liaison des
-        $this->pdoStatement->bindValue(':idBillet', $commentaire->getIdBillet(), PDO::PARAM_INT);
         $this->pdoStatement->bindValue(':auteur', $commentaire->getAuteur(), PDO::PARAM_STR);
         $this->pdoStatement->bindValue(':contenu_com', $commentaire->getContenuCom(), PDO::PARAM_STR);
+       // $this->pdoStatement->bindValue(':id_billet', $commentaire->getId(), PDO::PARAM_INT);
 
         //exécution de la requête
         $executeIsOk = $this->pdoStatement->execute();
@@ -63,7 +64,7 @@ class CommentaireManager{
         }
         else{
             $id = $this->pdo->lastInsertId();
-            $commentaire = $this->readCom($id);
+            $commentaire = $this->readAllCom();
 
             return true;
         }
