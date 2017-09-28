@@ -45,6 +45,7 @@ class BilletManager{
 
         return $billets;
     }
+
 	private function create(Billet &$billet){
 		$this->pdoStatement = $this->pdo->prepare('INSERT INTO billet VALUES (NULL, :titre, :contenu, NOW())');
 
@@ -98,6 +99,5 @@ class BilletManager{
 			return $this->update($billet);
 		}
 	}
-
 }
 

@@ -1,4 +1,5 @@
 <?php
+namespace vue\allContent;
 require_once '../modele/App/Manager/BilletManager.php';
 require_once '../modele/App/Entity/Billet.php';
 require_once '../modele/App/Manager/CommentaireManager.php';
@@ -44,7 +45,7 @@ $commentaires = $commentaireManager -> readAllCom();
         <?php  endif; ?>
     <?php endif; ?>
 
-    <form action="createCommentaire.php" method="post">
+    <form action="../modele/App/Manager/createCommentaire.php" method="post">
         <p>
             <label for="auteur"> Auteur </label>
             <input type="text" name="author" id="auteur">
@@ -55,7 +56,7 @@ $commentaires = $commentaireManager -> readAllCom();
         </p>
 
         <p><input type="submit" value="Ajouter le commentaire"></p>
-        <input type="hidden" name="id_billet" value="$_GET['$id']">
+        <input type="hidden" name="id_billet" value="<?=$billets->getId();?>">
     </form>
 
     <?php if (empty($commentaires)): ?>
@@ -68,7 +69,7 @@ $commentaires = $commentaireManager -> readAllCom();
                 <div class="news">
                     <h3>
                         <?= $commentaire->getAuteur(); ?>
-                        <em>le <?php echo $commentaire->getDateCom(); ?></em>
+                        <em>à <?php echo $commentaire->getDateCom(); ?></em>
                     </h3>
                     <p>
                         <?= $commentaire->getContenuCom(); ?>

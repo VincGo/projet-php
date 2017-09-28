@@ -5,91 +5,67 @@ use App\Entity\Commentaire;
 
 class CommentaireManager{
 
+    protected $bdd;
     private $pdo;
     private $pdoStatement;
 
     public function __construct(){
-        $this->pdo = new PDO('mysql:host=localhost;dbname=projet_php', 'root', '');
+        $bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'root', '');
+        $this->bdd = $bdd;
     }
 
-    public function readCom($id){
-        $this->pdoStatement = $this->pdo->prepare('SELECT * FROM commentaire WHERE id= :id');
 
-        $this->pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+    public function readCom($id) {
+        $bdd = $this->bdd;
+        $query = 'SELECT * FROM commentaire WHERE id = '.$id;
+        $req = $bdd->prepare($query);
+        $req->execute();
 
-        $executeIsOk = $this->pdoStatement->execute();
+        $row = $req->fetch(PDO::FETCH_ASSOC);
 
-        if($executeIsOk){
-            $commentaire = $this->pdoStatement->fetchObject('App\Entity\Commmentaire');
+        $commentaire = new Commentaire();
+        $commentaire->hydrate($row);
 
-            if($commentaire === false){
-                return null;
-            }
-            else{
-                return $commentaire;
-            }
-        }
-        else{
-            return false;
-        }
+        return $commentaire;
     }
 
     public function readAllCom(){
-        $this->pdoStatement = $this->pdo->query('SELECT * FROM commentaire ORDER BY id DESC');
-
-
+        $getbillet = $_GET['id'];
+        $bdd = $this->bdd;
+        $query = "SELECT auteur, contenu_com, DATE_FORMAT(date_com, '%Hh%imin%ss le %d/%m/%Y') AS date_com, id_billet FROM commentaire WHERE id_billet = '$getbillet'";
+        $req = $bdd->prepare($query);
+        $req->execute();
         $commentaires = [];
 
-        while($commentaire = $this->pdoStatement->fetchObject('App\Entity\Commentaire')){
+        while( $row = $req->fetch(PDO::FETCH_ASSOC)) {
+
+            $commentaire = new Commentaire();
+
+            $commentaire->setAuteur($row['auteur']);
+            $commentaire->setContenuCom($row['contenu_com']);
+            $commentaire->setDateCom($row['date_com']);
+            $commentaire->setId_Billet($row['id_billet']);
+
             $commentaires [] = $commentaire;
         }
-
         return $commentaires;
     }
 
-    private function createCom(Commentaire &$commentaire){
-        $this->pdoStatement = $this->pdo->prepare('INSERT INTO commentaire VALUES (NULL, :auteur, :contenu_com, NOW() /*:id_billet*/)');
 
-        //liaison des
-        $this->pdoStatement->bindValue(':auteur', $commentaire->getAuteur(), PDO::PARAM_STR);
-        $this->pdoStatement->bindValue(':contenu_com', $commentaire->getContenuCom(), PDO::PARAM_STR);
-       // $this->pdoStatement->bindValue(':id_billet', $commentaire->getId(), PDO::PARAM_INT);
 
-        //exécution de la requête
-        $executeIsOk = $this->pdoStatement->execute();
-
-        if(!$executeIsOk){
-            echo "erreur";
-            return false;
-        }
-        else{
-            $id = $this->pdo->lastInsertId();
-            $commentaire = $this->readAllCom();
-
-            return true;
-        }
-    }
-
-    //maj d'un objet en bdd
-    private function updateCom(Commentaire $commentaire){
-        $this->pdoStatement = $this->pdo->prepare('UPDATE commentaire set auteur = :auteur, contenuCom = :contenu_com WHERE id=:id LIMIT 1');
-
-        //lier chaque paramètre à une valeur
-        $this->pdoStatement->bindValue(':auteur', $commentaire->getAuteur(), PDO::PARAM_STR);
-        $this->pdoStatement->bindValue(':contenu', $commentaire->ContenuCOm(), PDO::PARAM_STR);
-        $this->pdoStatement->bindValue(':id', $commentaire->getId(), PDO::PARAM_INT);
-
-        //exécution de la requête
-        return $this->pdoStatement->execute();
-    }
-
-    //supprime un objet de la bdd
-    public function deleteCom(Commentaire $commentaire){
-        $this->pdoStatement = $this->pdo->prepare('DELETE FROM commentaire WHERE id = :id LIMIT 1');
-
-        $this->pdoStatement->bindValue(':id', $commentaire->getId(), PDO::PARAM_INT);
-
-        return $this->pdoStatement->execute();
+    
+    public function createCom(Commentaire $commentaire){
+        $bdd = $this->bdd;
+        $query = "INSERT INTO commentaire (auteur, contenu_com, date_com, id_billet) VALUES (:auteur, :contenu_com, NOW(), :id_billet)";
+        $req = $bdd->prepare($query);
+        $req->execute(
+            [
+                'auteur' => $commentaire->getAuteur(),
+                'contenu_com' => $commentaire->getContenuCom(),
+                'id_billet' => $commentaire->getId_Billet(),
+            ]
+        );
+        return $this;
     }
 
     public function saveCom(Commentaire &$commentaire){
@@ -97,7 +73,14 @@ class CommentaireManager{
             return $this->createCom($commentaire);
         }
         else{
-            return $this->updateCom($commentaire);
+            echo 'pas de maj encore';
+            //return $this->updateCom($commentaire);
         }
+    }
+
+    public function deleteCom($id) {
+        $bdd = $this->bdd;
+        $req = $bdd->prepare('DELETE FROM book WHERE id = '.$id);
+        $req->execute();
     }
 }

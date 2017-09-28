@@ -20,7 +20,7 @@ $billets = $billetManager-> readAll();
     <body>
         <h1>Blog d'écrivain</h1>
         <p>Derniers billets du blog </p>
-        <p><a href="form_create_billet.php"> Ajouter un billet </a></p>
+        <p><a href="../admin/admin_accueil.php"> Administration </a></p>
         <?php if (empty($billets)): ?>
             <p> Il n'y a pas de contact</p>
         <?php  else: ?>
