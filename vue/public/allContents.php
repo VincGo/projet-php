@@ -1,17 +1,11 @@
 <?php
 namespace vue\allContent;
-require_once '../modele/App/Manager/BilletManager.php';
-require_once '../modele/App/Entity/Billet.php';
-require_once '../modele/App/Manager/CommentaireManager.php';
-require_once '../modele/App/Entity/Commentaire.php';
-
-use App\Entity\Billet;
+require_once __DIR__.'../../../boostrap.php';
 use App\Manager\BilletManager;
-use App\Entity\Commentaire;
 use App\Manager\CommentaireManager;
 
 $billetManager = new BilletManager();
-$billets = $billetManager-> read($_GET['id']);
+$billet = $billetManager-> read($_GET['id']);
 
 $commentaireManager = new CommentaireManager();
 $commentaires = $commentaireManager -> readAllCom();
@@ -21,31 +15,23 @@ $commentaires = $commentaireManager -> readAllCom();
 <html>
     <head>
         <meta charset="UTF-8">
-        <link href="style.css" rel="stylesheet" />
+        <link href="../style.css" rel="stylesheet" />
         <title>Contenu</title>
     </head>
     <body>
     <h1>Blog d'écrivain</h1>
     <p><a href="homepage.php">Retour</a></p>
-    <?php if (empty($billets)): ?>
+    <?php if (empty($billet)): ?>
         <p> Il n'y a pas de contact</p>
     <?php  else: ?>
-        <?php if($billets === false):  ?>
+        <?php if($billet === false):  ?>
             <p> Une erreur est survenue </p>
         <?php  else: ?>
-                <div class="news">
-                    <h3>
-                        <?= $billets->getTitre(); ?>
-                        <em>le <?php echo $billets->getDate_billet(); ?></em>
-                    </h3>
-                    <p>
-                        <?= $billets->getContenu(); ?> <br>
-                    </p>
-                </div>
+            <?php include ("billet.php"); ?>
         <?php  endif; ?>
     <?php endif; ?>
 
-    <form action="../modele/App/Manager/createCommentaire.php" method="post">
+    <form action="../../controleur/createCommentaire.php" method="post">
         <p>
             <label for="auteur"> Auteur </label>
             <input type="text" name="author" id="auteur">
@@ -56,7 +42,7 @@ $commentaires = $commentaireManager -> readAllCom();
         </p>
 
         <p><input type="submit" value="Ajouter le commentaire"></p>
-        <input type="hidden" name="id_billet" value="<?=$billets->getId();?>">
+        <input type="hidden" name="id_billet" value="<?=$billet->getId();?>">
     </form>
 
     <?php if (empty($commentaires)): ?>
@@ -74,6 +60,7 @@ $commentaires = $commentaireManager -> readAllCom();
                     <p>
                         <?= $commentaire->getContenuCom(); ?>
                     </p>
+                    <a href="../../controleur/signaler.php?id=<?= $commentaire->getId(); ?>">Signaler</a>
                 </div>
             <?php endforeach; ?>
         <?php  endif; ?>

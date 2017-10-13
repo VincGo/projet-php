@@ -7,7 +7,7 @@ class Billet{
 	private $contenu;
 	private $date_billet;
 
-	//setter
+    //setter
 	public function setTitre($titre){
 		$this->titre = $titre;
 		return $this;
@@ -38,8 +38,6 @@ class Billet{
 	}
 
 	public function getDate_billet(){
-//        $date = date('d/m/Y', $this->date_billet)
-
 	    return $this->date_billet;
     }
 }

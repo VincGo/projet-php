@@ -7,6 +7,23 @@ Class Commentaire{
     private $auteur;
     private $contenu_com;
     private $date_com;
+    private $signale;
+
+    /**
+     * @return mixed
+     */
+    public function getSignale()
+    {
+        return $this->signale;
+    }
+
+    /**
+     * @param mixed $signale
+     */
+    public function setSignale($signale)
+    {
+        $this->signale = $signale;
+    }
 
 
     public function getId(){

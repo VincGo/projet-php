@@ -22,16 +22,4 @@ else{
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Ajout d'un billet</title>
-</head>
-<body>
-<h1> insertion d'un billet</h1>
-<a href="admin_accueil.php">Retour à l'administration</a>
-
-<p><?=  $message ?></p>
-
-</body>
-</html>
+<?php include("message.php"); ?>
