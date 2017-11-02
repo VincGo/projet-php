@@ -40,7 +40,7 @@ class CommentaireManager
     public function readAllCom()
     {
         $getbillet = $_GET['id'];
-        $this->pdoStatement = $this->bdd->query("SELECT id, auteur, contenu_com, DATE_FORMAT(date_com, 'à %Hh%imin%ss le %d/%m/%Y') AS date, id_billet, signale FROM commentaire WHERE id_billet = '$getbillet'");
+        $this->pdoStatement = $this->bdd->query("SELECT id, auteur, contenu_com, DATE_FORMAT(date_com, 'à %Hh%i le %d/%m/%Y') AS date_com, id_billet, signale FROM commentaire WHERE id_billet = '$getbillet' ORDER BY date_com DESC");
 
         //construction d'un tableau d'objet de type Contact
         $commentaires = [];
@@ -55,7 +55,7 @@ class CommentaireManager
 
     public function adminCom()
     {
-        $this->pdoStatement = $this->bdd->query('SELECT * FROM commentaire ORDER BY signale DESC');
+        $this->pdoStatement = $this->bdd->query('SELECT id, auteur, contenu_com, DATE_FORMAT(date_com, \'à %Hh%i le %d/%m/%Y\') AS date_com, id_billet, signale FROM commentaire ORDER BY signale DESC');
 
         //construction d'un tableau d'objet de type Contact
         $commentaires = [];
@@ -83,6 +83,20 @@ class CommentaireManager
         return $this;
     }
 
+    public function updateCom(Commentaire $commentaire){
+        $bdd = $this->bdd;
+        $query = "UPDATE commentaire SET auteur = :auteur, contenu_com = :contenu_com, signale = 0 WHERE id = :id";
+        $req = $bdd->prepare($query);
+        $req->execute(
+            [
+                'auteur' => $commentaire->getAuteur(),
+                'contenu_com' => $commentaire->getContenuCom(),
+                'id' => $commentaire->getId(),
+            ]
+        );
+          return $this;
+    }
+
     public function delete($id) {
         $bdd = $this->bdd;
         $req = $bdd->prepare('DELETE FROM commentaire WHERE id = '.$id);
@@ -98,7 +112,7 @@ class CommentaireManager
 
     public function signal($id){
         $bdd = $this->bdd;
-        $req = $bdd->prepare('UPDATE commentaire SET signale =+1 WHERE id = '.$id);
+        $req = $bdd->prepare('UPDATE commentaire SET signale = 1 WHERE id = '.$id);
         $req->execute();
     }
 
@@ -107,8 +121,7 @@ class CommentaireManager
         if (is_null($commentaire->getId())) {
             return $this->createCom($commentaire);
         } else {
-            echo 'pas de maj encore';
-            //return $this->updateCom($commentaire);
+            return $this->updateCom($commentaire);
         }
     }
 }

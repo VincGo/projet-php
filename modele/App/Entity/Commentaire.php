@@ -1,10 +1,16 @@
 <?php
+declare(strict_types = 1);
 namespace App\Entity;
 
 Class Commentaire{
     private $id;
     private $id_billet;
     private $auteur;
+
+
+    /**
+     * @var string $contenu_com contenu du commentaire
+     */
     private $contenu_com;
     private $date_com;
     private $signale;
@@ -74,7 +80,7 @@ Class Commentaire{
     }
 
     /**
-     * @param mixed $contenu_com
+     * @param string
      * @return Commentaire
      */
     public function setContenuCom($contenu_com)

@@ -11,7 +11,7 @@ $commentaires = $commentaireManager -> adminCom();
 <head>
     <meta charset="utf-8">
     <title>Modération billet</title>
-    <link rel="stylesheet" href="../style2.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
@@ -43,6 +43,8 @@ $commentaires = $commentaireManager -> adminCom();
                         <td><?= $commentaire->getSignale(); ?></td>
                         <td>
                             <a href="../../controleur/delete_com.php?id=<?= $commentaire->getId();?>">Supprimer</a>
+                            <a href="../../controleur/moderation_com.php?id=<?= $commentaire->getId(); ?>">modifier</a>
+
                         </td>
                     </tr>
                 </tbody>

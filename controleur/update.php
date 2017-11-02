@@ -1,8 +1,5 @@
 <?php
-require_once '../modele/App/Manager/BilletManager.php';
-require_once '../modele/App/Entity/Billet.php';
-
-use App\Entity\Billet;
+require_once __DIR__.'../../boostrap.php';
 use App\Manager\BilletManager;
 
 $billetManager = new BilletManager();

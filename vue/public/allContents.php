@@ -27,21 +27,30 @@ $commentaires = $commentaireManager -> readAllCom();
         <?php if($billet === false):  ?>
             <p> Une erreur est survenue </p>
         <?php  else: ?>
-            <?php include ("billet.php"); ?>
+            <div class="news">
+                <h2>
+                    <a href="allContents.php?id=<?= $billet->getId(); ?>"><?= $billet->getTitre(); ?></a>
+                    <em><?php echo $billet->getDate_billet(); ?></em>
+                </h2>
+                <p>
+                    <?= $billet->getContenu(); ?><br>
+                    <a href="allContents.php?id=<?= $billet->getId(); ?>">Commentaires</a>
+                </p>
+            </div>
         <?php  endif; ?>
     <?php endif; ?>
 
     <form action="../../controleur/createCommentaire.php" method="post">
         <p>
             <label for="auteur"> Auteur </label>
-            <input type="text" name="author" id="auteur">
+            <input type="text" name="author" id="auteur" required="required">
         </p>
         <p>
             <label for="contenu"> Contenu </label>
-            <textarea name="contentsCom" id="contenu" rows="10" cols="50"></textarea>
+            <textarea name="contentsCom" id="contenu" rows="10" cols="50" required="required"></textarea>
         </p>
 
-        <p><input type="submit" value="Ajouter le commentaire"></p>
+        <p><input type="submit" value="Ajouter le commentaire" formnovalidate></p>
         <input type="hidden" name="id_billet" value="<?=$billet->getId();?>">
     </form>
 
@@ -55,7 +64,7 @@ $commentaires = $commentaireManager -> readAllCom();
                 <div class="news">
                     <h3>
                         <?= $commentaire->getAuteur(); ?>
-                        <em>à <?php echo $commentaire->getDateCom(); ?></em>
+                        <em><?php echo $commentaire->getDateCom(); ?></em>
                     </h3>
                     <p>
                         <?= $commentaire->getContenuCom(); ?>

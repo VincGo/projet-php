@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'../../../boostrap.php';
+require_once __DIR__.'../../boostrap.php';
 use App\Manager\BilletManager;
 
 $billetManager = new BilletManager();
@@ -11,7 +11,7 @@ $billets = $billetManager-> readAll();
     <head>
         <meta charset="utf-8">
         <title>Modération billet</title>
-        <link rel="stylesheet" href="../style2.css">
+        <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     </head>
     <body>
@@ -37,7 +37,7 @@ $billets = $billetManager-> readAll();
                 <tbody>
                 <tr>
                     <th scope="row"><?= $billet->getTitre(); ?></th>
-                    <td><?= $billet->getContenu(); ?></td>
+                    <td><?php include("../public/billet.php"); ?></td>
                     <td><?php echo $billet->getDate_billet(); ?></td>
                     <td>
                         <a href="../../controleur/moderation.php?id=<?= $billet->getId(); ?>">modifier</a>

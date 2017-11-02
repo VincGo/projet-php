@@ -15,7 +15,7 @@ $billets = $billetManager-> read($_GET['id']);
     </head>
     <body>
         <h1>Blog d'écrivain</h1>
-        <h2> Ajouter un billet</h2>
+        <h2>Modifier un billet</h2>
         <p><a href="../vue/prive/table_billet.php"> Retour</a></p>
 
         <form action="update.php" method="post">
