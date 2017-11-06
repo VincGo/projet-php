@@ -1,0 +1,13 @@
+#connexion{
+    width:600px;
+    margin: 30px 0 0 10px;
+}
+
+span{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+em{
+    font-size: 0.9em;
+}
