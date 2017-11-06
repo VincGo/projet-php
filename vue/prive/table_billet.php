@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'../../boostrap.php';
+require_once __DIR__ . '../../../boostrap.php';
 use App\Manager\BilletManager;
 
 $billetManager = new BilletManager();
@@ -37,7 +37,7 @@ $billets = $billetManager-> readAll();
                 <tbody>
                 <tr>
                     <th scope="row"><?= $billet->getTitre(); ?></th>
-                    <td><?php include("../public/billet.php"); ?></td>
+                    <td><?php include("../public/include/billet.php"); ?></td>
                     <td><?php echo $billet->getDate_billet(); ?></td>
                     <td>
                         <a href="../../controleur/moderation.php?id=<?= $billet->getId(); ?>">modifier</a>

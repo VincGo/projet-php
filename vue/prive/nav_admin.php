@@ -2,7 +2,7 @@
     <a class="navbar-brand" href="table_billet.php">Administration</a>
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="../public/homepage.php">Page d'accueil<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">

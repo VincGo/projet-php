@@ -18,7 +18,7 @@
                 <label for="mdp">Mot de passe</label>
                 <input type="password" name="mdp" class="form-control" id="mdp">
             </div>
-            <button type="submit" class="btn btn-primary">Connexion</button>
+            <button type="submit" name="submit" class="btn btn-primary">Connexion</button>
         </form>
         <?php include("script.php"); ?>
 </html>

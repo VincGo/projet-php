@@ -14,66 +14,69 @@ $commentaires = $commentaireManager -> readAllCom();
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <link href="../style.css" rel="stylesheet" />
-        <title>Contenu</title>
+        <?php include ("include/head_home.php")?>
+        <link href="../css/style.css" rel="stylesheet">
     </head>
     <body>
-    <h1>Blog d'écrivain</h1>
-    <p><a href="homepage.php">Retour</a></p>
-    <?php if (empty($billet)): ?>
-        <p> Il n'y a pas de contact</p>
-    <?php  else: ?>
-        <?php if($billet === false):  ?>
-            <p> Une erreur est survenue </p>
-        <?php  else: ?>
-            <div class="news">
-                <h2>
-                    <a href="allContents.php?id=<?= $billet->getId(); ?>"><?= $billet->getTitre(); ?></a>
-                    <em><?php echo $billet->getDate_billet(); ?></em>
-                </h2>
-                <p>
-                    <?= $billet->getContenu(); ?><br>
-                    <a href="allContents.php?id=<?= $billet->getId(); ?>">Commentaires</a>
-                </p>
-            </div>
-        <?php  endif; ?>
-    <?php endif; ?>
-
-    <form action="../../controleur/createCommentaire.php" method="post">
-        <p>
-            <label for="auteur"> Auteur </label>
-            <input type="text" name="author" id="auteur" required="required">
-        </p>
-        <p>
-            <label for="contenu"> Contenu </label>
-            <textarea name="contentsCom" id="contenu" rows="10" cols="50" required="required"></textarea>
-        </p>
-
-        <p><input type="submit" value="Ajouter le commentaire" formnovalidate></p>
-        <input type="hidden" name="id_billet" value="<?=$billet->getId();?>">
-    </form>
-
-    <?php if (empty($commentaires)): ?>
-        <p> Il n'y a pas de commentaire</p>
-    <?php  else: ?>
-        <?php if($commentaires === false):  ?>
-            <p> Une erreur est survenue </p>
-        <?php  else: ?>
-            <?php foreach ($commentaires as $commentaire): ?>
-                <div class="news">
-                    <h3>
-                        <?= $commentaire->getAuteur(); ?>
-                        <em><?php echo $commentaire->getDateCom(); ?></em>
-                    </h3>
-                    <p>
-                        <?= $commentaire->getContenuCom(); ?>
-                    </p>
-                    <a href="../../controleur/signaler.php?id=<?= $commentaire->getId(); ?>">Signaler</a>
+        <?php include ("include/nav_home.php")?>
+        <header class="masthead" style="background-image: url('../css/alaska-38.jpg')">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+                        <div class="post-heading">
+                            <h1><?= $billet->getTitre(); ?></h1>
+                            <p class="post-meta">Publié <?= $billet->getDate_billet(); ?></p>
+                        </div>
+                    </div>
                 </div>
-            <?php endforeach; ?>
-        <?php  endif; ?>
-    <?php endif; ?>
-
+            </div>
+        </header>
+        <!-- Post Content -->
+        <div class="container">
+            <article>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-10 mx-auto">
+                            <?= $billet->getContenu(); ?>
+                        </div>
+                    </div>
+            </article>
+            <hr>
+            <!-- Comments Form -->
+            <div class="card my-4">
+                <h5 class="card-header">Laisser un commentaire:</h5>
+                <div class="card-body">
+                    <form action="../../controleur/createCommentaire.php" method="post">
+                        <div class="form-group">
+                            <input type="text" name="author" class="form-control" id="auteur" required="required" placeholder="Pseudo">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="contentsCom" id="contenu" required="required" class="form-control" rows="3" placeholder="Entrez votre text ici ..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        <input type="hidden" name="id_billet" value="<?=$billet->getId();?>">
+                    </form>
+                </div>
+            </div>
+            <!-- Comment -->
+            <?php if (empty($commentaires)): ?>
+                <p> Il n'y a pas de commentaire</p>
+            <?php  else: ?>
+                <?php if($commentaires === false):  ?>
+                    <p> Une erreur est survenue </p>
+                <?php  else: ?>
+                    <?php foreach ($commentaires as $commentaire): ?>
+                        <div class="media mb-4">
+                            <div class="media-body">
+                                <p><span><?= $commentaire->getAuteur(); ?></span> <em><?php echo $commentaire->getDateCom(); ?></em></p>
+                                <?= $commentaire->getContenuCom(); ?>
+                            </div>
+                            <em><a href="../../controleur/signaler.php?id=<?= $commentaire->getId(); ?>">Signaler</a></em>
+                        </div>
+                        <hr>
+                    <?php endforeach; ?>
+                <?php  endif; ?>
+            <?php endif; ?>
+        </div>
     </body>
 </html>
