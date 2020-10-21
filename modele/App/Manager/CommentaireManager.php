@@ -11,7 +11,7 @@ class CommentaireManager
 
     public function __construct()
     {
-        $bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'root', '');
+        $bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'dev', 'qsdfgh456');
         $this->bdd = $bdd;
     }
 

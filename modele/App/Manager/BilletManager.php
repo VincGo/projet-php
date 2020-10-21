@@ -8,7 +8,7 @@ class BilletManager{
 	private $pdoStatement;
 
 	public function __construct(){
-		$this->pdo = new PDO('mysql:host=localhost;dbname=projet_php', 'root', '');
+		$this->pdo = new PDO('mysql:host=localhost;dbname=projet_php', 'dev', 'qsdfgh456');
 	}
 
 	public function read($id){

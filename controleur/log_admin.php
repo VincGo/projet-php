@@ -1,5 +1,5 @@
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'dev', 'qsdfgh456');
 
     $pass = sha1($_POST['mdp']);
     $pseudo = $_POST['pseudo'];
