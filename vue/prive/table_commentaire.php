@@ -5,7 +5,6 @@ use App\Manager\CommentaireManager;
 $commentaireManager = new CommentaireManager();
 $commentaires = $commentaireManager -> adminCom();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +15,6 @@ $commentaires = $commentaireManager -> adminCom();
 </head>
 <body>
     <?php include("nav_admin.php"); ?>
-
-
     <?php if (empty($commentaires)): ?>
         <p> Il n'y a pas de commentaire</p>
     <?php  else: ?>
@@ -43,7 +40,7 @@ $commentaires = $commentaireManager -> adminCom();
                         <td><?= $commentaire->getSignale(); ?></td>
                         <td>
                             <a href="../../controleur/delete_com.php?id=<?= $commentaire->getId();?>">Supprimer</a>
-                            <a href="../../controleur/moderation_com.php?id=<?= $commentaire->getId(); ?>">modifier</a>
+                            <a href="moderation_com.php?id=<?= $commentaire->getId(); ?>">modifier</a>
 
                         </td>
                     </tr>

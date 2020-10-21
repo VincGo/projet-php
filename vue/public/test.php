@@ -27,7 +27,7 @@
                         <a class="nav-link" href="homepage.php">Page d'accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../prive/infoAdmin.php">administration</a>
+                        <a class="nav-link" href="../../controleur/infoAdmin.php">administration</a>
                     </li>
                 </ul>
             </div>

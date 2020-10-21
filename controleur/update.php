@@ -11,7 +11,7 @@ $billet->setContenu($_POST['contents']);
 $saveIsOk = $billetManager->save($billet);
 
 if($saveIsOk){
-    $message = 'Le billet a été mis à jour';
+    header('location: ../vue/prive/table_billet.php');
 }
 else{
     $message = 'Le billet n\' a pas été mis à jour';

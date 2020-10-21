@@ -1,5 +1,5 @@
 <?php
-    $bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'root', '');
 
     $pass = sha1($_POST['mdp']);
     $pseudo = $_POST['pseudo'];
@@ -20,18 +20,20 @@
         if (!$resultat)
         {
             echo "<p>Mauvais identifiant ou mot de passe ! <a href='../vue/public/homepage.php'>retour</a></p>";
-            echo "<a href='../vue/prive/infoAdmin.php'>Réessayer</a></p>";
+            echo "<a href='infoAdmin.php'>Réessayer</a></p>";
         }
         else
         {
-            echo "<p><a href='../vue/prive/table_billet.php'>Accès administration</a></p>";
+            session_start();
+            $_SESSION['pseudo'] = $pseudo;
+            $_SESSION['mdp'] = $pass;
+            header('location: ../vue/prive/table_billet.php');
         }
     }
     else
     {
         echo 'veuillez renseigner les champs';
     }
-
 ?>
 
 

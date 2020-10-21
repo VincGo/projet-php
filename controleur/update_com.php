@@ -11,7 +11,7 @@ $commentaire ->setContenuCom($_POST['contents_com']);
 $saveIsOk = $commentaireManager->saveCom($commentaire );
 
 if($saveIsOk){
-    $message = 'Le commentaire a été mis à jour';
+    header('location: ../vue/prive/table_billet.php');
 }
 else{
     $message = 'Le commentaire n\' a pas été mis à jour';

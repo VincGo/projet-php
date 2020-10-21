@@ -11,7 +11,7 @@ $commentaireManager = new CommentaireManager();
 $commentaireManager -> deleteAll();
 
 if($deleteIsOk){
-    $message = 'Le billet a été supprimé';
+    header('location: ../vue/prive/table_billet.php');
 }
 else{
     $message = 'Le billet n\' a pas été supprimé';

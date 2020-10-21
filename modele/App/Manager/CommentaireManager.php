@@ -40,7 +40,7 @@ class CommentaireManager
     public function readAllCom()
     {
         $getbillet = $_GET['id'];
-        $this->pdoStatement = $this->bdd->query("SELECT id, auteur, contenu_com, DATE_FORMAT(date_com, 'à %Hh%i le %d/%m/%Y') AS date_com, id_billet, signale FROM commentaire WHERE id_billet = '$getbillet' ORDER BY date_com DESC");
+        $this->pdoStatement = $this->bdd->query("SELECT id, auteur, contenu_com, DATE_FORMAT(date_com, 'le %d/%m/%Y à %Hh%i') AS date_com, id_billet, signale FROM commentaire WHERE id_billet = '$getbillet' ORDER BY date_com DESC");
 
         //construction d'un tableau d'objet de type Contact
         $commentaires = [];

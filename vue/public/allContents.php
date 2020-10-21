@@ -3,9 +3,12 @@ namespace vue\allContent;
 require_once __DIR__.'../../../boostrap.php';
 use App\Manager\BilletManager;
 use App\Manager\CommentaireManager;
+use App\Entity\Commentaire;
 
 $billetManager = new BilletManager();
 $billet = $billetManager-> read($_GET['id']);
+
+include ("include/create_com.php");
 
 $commentaireManager = new CommentaireManager();
 $commentaires = $commentaireManager -> readAllCom();
@@ -15,7 +18,6 @@ $commentaires = $commentaireManager -> readAllCom();
 <html>
     <head>
         <?php include ("include/head_home.php")?>
-        <link href="../css/style.css" rel="stylesheet">
     </head>
     <body>
         <?php include ("include/nav_home.php")?>
@@ -46,14 +48,14 @@ $commentaires = $commentaireManager -> readAllCom();
             <div class="card my-4">
                 <h5 class="card-header">Laisser un commentaire:</h5>
                 <div class="card-body">
-                    <form action="../../controleur/createCommentaire.php" method="post">
+                    <form method="post">
                         <div class="form-group">
                             <input type="text" name="author" class="form-control" id="auteur" required="required" placeholder="Pseudo">
                         </div>
                         <div class="form-group">
                             <textarea name="contentsCom" id="contenu" required="required" class="form-control" rows="3" placeholder="Entrez votre text ici ..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        <button name="submitCom" type="submit" class="btn btn-primary">Ajouter</button>
                         <input type="hidden" name="id_billet" value="<?=$billet->getId();?>">
                     </form>
                 </div>

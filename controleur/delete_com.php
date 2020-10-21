@@ -6,7 +6,7 @@ $commentaireManager = new CommentaireManager();
 $commentaireManager->delete($_GET['id']);
 
 if($commentaireManager){
-    $message = 'Le commentaire a été supprimé';
+    header('location: ../vue/prive/table_commentaire.php');
 }
 else{
     $message = 'Le commentaire n\' a pas été supprimé';

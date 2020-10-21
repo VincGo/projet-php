@@ -34,7 +34,7 @@ class BilletManager{
 	}
 
     public function readAll(){
-        $this->pdoStatement = $this->pdo->query("SELECT id, titre, contenu, DATE_FORMAT(date_billet, 'à %Hh%i le %d/%m/%Y') AS date_billet FROM billet ORDER BY date_billet");
+        $this->pdoStatement = $this->pdo->query("SELECT id, titre, contenu, DATE_FORMAT(date_billet, 'le %d/%m/%Y à %Hh%i') AS date_billet FROM billet ORDER BY date_billet DESC");
 
         //construction d'un tableau d'objet de type Contact
         $billets = [];

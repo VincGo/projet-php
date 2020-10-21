@@ -40,7 +40,7 @@ $billets = $billetManager-> readAll();
                     <td><?php include("../public/include/billet.php"); ?></td>
                     <td><?php echo $billet->getDate_billet(); ?></td>
                     <td>
-                        <a href="../../controleur/moderation.php?id=<?= $billet->getId(); ?>">modifier</a>
+                        <a href="moderation.php?id=<?= $billet->getId(); ?>">modifier</a>
                         <a href="../../controleur/delete.php?id=<?= $billet->getId(); ?>">supprimer</a>
                     </td>
                 </tr>
@@ -49,6 +49,5 @@ $billets = $billetManager-> readAll();
         <?php  endif; ?>
     <?php endif; ?>
     </table>
-    <?php include("script.php"); ?>
     </body>
 </html>
